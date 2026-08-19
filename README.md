@@ -9,4 +9,4 @@ P11 scaffolding trees for `pf-dev new`. Files are adapted from **P04** `pf-works
 
 Each directory has `template.json`. The CLI copies the tree and substitutes `{{MODULE}}`, `{{PROJECT}}`, `{{HTTP_PORT}}`. There is no postInstall shell.
 
-Scanner / portal / CI dashboard / review live in other `pf-developer-*` repos.
+Scanner / portal / CI dashboard / review live in other `pf-developer-*` repos. `go-api` and `go-next` include `openapi.yaml` and `.github/workflows/openapi-breaking.yml` (oasdiff-action on PRs).
