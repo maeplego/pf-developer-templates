@@ -24,6 +24,9 @@ jobs:
           go-version-file: go-api/go.mod
           check-latest: true
           cache-dependency-path: go-api/go.sum
+      - name: substitute {{MODULE}} so go can parse the checkout
+        run: |
+          find . -type f \( -name '*.go' -o -name 'go.mod' \) -exec sed -i 's|{{MODULE}}|example.com/template|g' {} +
       - run: go test ./...
       - run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
 
@@ -39,6 +42,9 @@ jobs:
           go-version-file: go-next/apps/api/go.mod
           check-latest: true
           cache-dependency-path: go-next/apps/api/go.sum
+      - name: substitute {{MODULE}} so go can parse the checkout
+        run: |
+          find . -type f \( -name '*.go' -o -name 'go.mod' \) -exec sed -i 's|{{MODULE}}|example.com/template|g' {} +
       - run: go test ./...
       - run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
   trivy:
