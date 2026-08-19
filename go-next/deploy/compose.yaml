@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: ../apps/api
+      dockerfile: Dockerfile
+    environment:
+      HTTP_PORT: "{{HTTP_PORT}}"
+      DEV_AUTH: ${DEV_AUTH:-true}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+      OTEL_SERVICE_NAME: ${OTEL_SERVICE_NAME:-{{PROJECT}}-api}
+      OIDC_ISSUER: ${OIDC_ISSUER:-}
+      OIDC_INTERNAL_BASE: ${OIDC_INTERNAL_BASE:-}
+      OIDC_AUDIENCE: ${OIDC_AUDIENCE:-}
+    ports:
+      - "{{HTTP_PORT}}:{{HTTP_PORT}}"
+
+  web:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ../apps/web:/app
+    command: ["sh", "-c", "npm install && npm run dev"]
+    environment:
+      API_URL: http://api:{{HTTP_PORT}}
+      OIDC_ISSUER: ${OIDC_ISSUER:-}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+      OIDC_REDIRECT_URI: ${OIDC_REDIRECT_URI:-http://localhost:3000/callback}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api

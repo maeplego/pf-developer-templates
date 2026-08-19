@@ -1,0 +1,16 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    environment:
+      HTTP_PORT: "{{HTTP_PORT}}"
+      DEV_AUTH: ${DEV_AUTH:-true}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+      OTEL_SERVICE_NAME: ${OTEL_SERVICE_NAME:-{{PROJECT}}}
+      OIDC_ISSUER: ${OIDC_ISSUER:-}
+      OIDC_INTERNAL_BASE: ${OIDC_INTERNAL_BASE:-}
+      OIDC_AUDIENCE: ${OIDC_AUDIENCE:-}
+    ports:
+      - "{{HTTP_PORT}}:{{HTTP_PORT}}"

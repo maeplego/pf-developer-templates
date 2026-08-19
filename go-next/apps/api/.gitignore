@@ -1,0 +1,26 @@
+# Binaries and modules
+/bin/
+/dist/
+*.exe
+*.test
+*.out
+coverage.out
+vendor/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# Chat dumps if any land here
+chat-context/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

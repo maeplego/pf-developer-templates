@@ -1,0 +1,11 @@
+{
+  "name": "go-api",
+  "description": "Small Go HTTP API adapted from P04 workspace and P06 commerce: /health, /ready, OTel env, OIDC client stub, integer-money catalog.",
+  "version": "1",
+  "tags": ["go", "api", "p04", "p06"],
+  "variables": {
+    "projectName": { "from": "name" },
+    "module": { "from": "module" }
+  },
+  "hooks": {}
+}

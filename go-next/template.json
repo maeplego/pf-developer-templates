@@ -1,0 +1,11 @@
+{
+  "name": "go-next",
+  "description": "Go API (P04/P06 catalog slice) plus Next.js web with /health, /ready, and a P01 OIDC client stub from P04 workspace.",
+  "version": "1",
+  "tags": ["go", "next", "api", "p04", "p06"],
+  "variables": {
+    "projectName": { "from": "name" },
+    "module": { "from": "module" }
+  },
+  "hooks": {}
+}
