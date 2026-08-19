@@ -22,6 +22,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: go-api/go.mod
+          check-latest: true
           cache-dependency-path: go-api/go.sum
       - run: go test ./...
       - run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
@@ -36,6 +37,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: go-next/apps/api/go.mod
+          check-latest: true
           cache-dependency-path: go-next/apps/api/go.sum
       - run: go test ./...
       - run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
@@ -52,4 +54,4 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: "1"
           ignore-unfixed: true
-
+          trivyignores: .trivyignore
