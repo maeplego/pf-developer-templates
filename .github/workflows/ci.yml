@@ -1,0 +1,55 @@
+# Always-on unit + vuln CI.
+# Compose up, Playwright browsers, and Docker Desktop Kubernetes are not in this
+# workflow: hosted runners have no Desktop cluster, and image builds are too slow
+# for every push. See portfolio-plan/ci.md in the meta repo.
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  go-api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go-api/go.mod
+          cache-dependency-path: go-api/go.sum
+      - run: go test ./...
+      - run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
+
+  go-next-api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: go-next/apps/api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go-next/apps/api/go.mod
+          cache-dependency-path: go-next/apps/api/go.sum
+      - run: go test ./...
+      - run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trivy filesystem (HIGH/CRITICAL)
+        uses: aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8  # v0.36.0 (pin SHA after 2026-03 tag hijack)
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+
