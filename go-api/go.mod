@@ -1,5 +1,5 @@
 module {{MODULE}}
 
-go 1.26.5
+go 1.26.6
 
 require github.com/oklog/ulid/v2 v2.1.2
