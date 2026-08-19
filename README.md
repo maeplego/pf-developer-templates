@@ -1,12 +1,12 @@
 # pf-developer-templates
 
-P11 scaffolding trees for `pf-dev new`. Files are adapted from **P04** `pf-workspace/apps/api` (and `apps/web` OIDC) and **P06** `pf-commerce/apps/api` (catalog + integer money + httptest). They are not empty stubs.
+[pf-developer-cli](https://github.com/maeplego/pf-developer-cli)（`pf-dev new`）がコピーするツリーです。ワークスペース API とコマース API の小さなスライスを元にしており、空のスタブではありません。
 
-| Template | What you get |
+| テンプレート | 内容 |
 | --- | --- |
-| `go-api` | Go HTTP API: `/health`, `/ready`, OTel env, OIDC userinfo stub, catalog |
-| `go-next` | Same API under `apps/api` plus Next.js with health/ready and PKCE login stub |
+| `go-api` | Go HTTP。`/health`、`/ready`、商品カタログ、OIDC の userinfo スタブ |
+| `go-next` | 同じ API に加え、Next.js（ヘルスと PKCE ログインのスタブ） |
 
-Each directory has `template.json`. The CLI copies the tree and substitutes `{{MODULE}}`, `{{PROJECT}}`, `{{HTTP_PORT}}`. There is no postInstall shell.
+各ディレクトリに `template.json` があります。CLI が `{{MODULE}}` などを置換します。コピー後のシェルは走りません。
 
-Scanner / portal / CI dashboard / review live in other `pf-developer-*` repos. `go-api` and `go-next` include `openapi.yaml` and `.github/workflows/openapi-breaking.yml` (oasdiff-action on PRs).
+OpenAPI と、PR で breaking change を落とす GitHub Actions 例も入っています。スキャナやポータル本体はこのリポジトリにはありません。
